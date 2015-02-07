@@ -1,17 +1,43 @@
 package com.denniscourt.secrethandshake;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.PointF;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ToggleButton;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements TouchyView.TouchPatternListener {
+    private static final String PREFS_NAME = "com.denniscourt.secrethandshake";
+    private static final String TOUCHES_KEY = "touches";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        final TouchyView touchyView = (TouchyView) findViewById(R.id.touchy_view);
+        touchyView.setTouchPatternListener(this);
+
+        final ToggleButton toggleButton = (ToggleButton) findViewById(R.id.toggle_button);
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (toggleButton.isChecked()) {
+                    touchyView.startDetecting();
+                } else {
+                    touchyView.startRecording();
+                }
+            }
+        });
     }
 
 
@@ -35,5 +61,16 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void touchPatternReceived(List<PointF> touches) {
+        /*Set<String> touchesSet = new HashSet<>(touches.size());
+        for (PointF touch : touches) {
+            touch.toString()
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        sharedPreferences.edit().putString(TOUCHES_KEY, )*/
     }
 }
