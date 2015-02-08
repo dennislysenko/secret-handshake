@@ -23,7 +23,7 @@ public class TouchyView extends View {
 
     private List<PointF> savedTouches = new ArrayList<>(10);
 
-    private enum Mode { RECORDING, DETECTING };
+    private enum Mode { RECORDING, DETECTING }
     private Mode currentMode = Mode.RECORDING;
 
     public TouchyView(Context context) {
@@ -121,20 +121,6 @@ public class TouchyView extends View {
     }
 
     private boolean detectPattern(List<PointF> touches) {
-        //access last saved touch down pattern
-        //compare realtive x,y locations
-        //if yes .. you know the drill etc
-        //is there going to be an object that contains the last savd touch pattern
-        // or is it going to just be field variables we access?
-        //might be cleaner to make an obj, but who cares.
-        // I should be using multiline comment.. who cares.
-        /* boom, here we go. ok, once we access the pattern and compare we should then make the
-        screen light up green or something for "proof of concept" yes?
-        what do you think?
-        whatels
-        e
-         */
-
         if (touches.size() != savedTouches.size()) {
             return false;
         }
